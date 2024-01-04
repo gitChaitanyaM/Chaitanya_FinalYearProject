@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <style>
+          .btn{font-weight: bold;padding: 5px;}
+          textarea{width:300px;}
+          h4{color:#00F;}
+
+          /* Vrushabh */
+          
+          .floatL{float: left;}
+      
+          header{
+            width:100%;
+            background-color:yellowgreen;
+            height: 100px;
+          } 
+          figure{position: relative;}
+          figure{margin: 0px;}
+          .logo-img{
+            background-image: url("https://img.freepik.com/premium-vector/db-logo-design-letter-logo-design_522667-23.jpg?w=740");
+            background-size: cover;
+            background-repeat: no-repeat;
+            width:100px;
+            height: 100px;
+          }  
+          .database {
+            font-size: 60px;
+            padding: 5px 0px;
+            color: white;
+            font-family:serif ;
+          }
+          aside{width:8%;} 
+          section{
+            width: 92%;
+            text-align: center;
+          }  
+          .btn-dark{float:right;margin:55px 5px 0px 0px;}
+          @media only screen and (max-width:990px){
+            .database{font-size:26px;margin-top:30px;}
+            ins{margin-left: 35px;margin-top: 25px;}
+            .btn-dark{margin-top:25px;}
+            #userData,#adminData,#managerData{background-color: aliceblue;padding-left: 5px;}
+
+          }
+        </style>        
+    </head>
+    <body>
+        <div class="container">
+          <header>
+            <aside class="floatL ">
+              <figure >
+                 <article class="logo-img"></article>
+              </figure>
+            </aside>
+            <section class="floatL" >
+                <article class="database " >
+                  <ins class="font-effect-fire"> The DATABASE COMPANY</ins>
+                  <a href="/" class="btn btn-dark">Logout</a>
+               </article>
+            </section>
+          </header>
+          <div style="clear:both;"></div>
+          <div class="mt-3">
+            <div class="accordion" id="accordionExample">
+<%                
+                  var k=0;
+                  if(userType=="user"){   %>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading-<%=k%>">
+                        <button class="accordion-button collapsed" type="button" aria-expanded="true" aria-controls="collapseOne" style="font-size:22px;background-color: rgba(0, 0, 255, 0.326);">
+                          <span class="badge bg-primary"># <%=usersData[k].id %></span>
+                          <span class="badge bg-secondary ms-3"><%=usersData[k].name %></span>
+                          <span class="badge bg-secondary ms-3"><%=usersData[k].email %></span>
+                        </button>
+                      </h2>
+                      <div class="accordion-collapse" aria-labelledby="heading-<%=i%>" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div id="userData">   
+                            <h4>User Section</h4>   
+                            <hr />                    
+                            <p>
+                              <strong>Phone #: </strong>
+                              <span id="displayPhone-<%=k%>">
+                                <span id="showPhone-<%=k%>"><%=usersData[k].phone %></span>
+<%                                if(userType=="user"){ %>                              
+                                    <button class="btn btn-edit-phone"><i class="bi bi-pencil-square"></i></button>
+<%                                } %>
+                              </span>
+                              <span id="editPhone-<%=k%>" style="display:none;">
+                                <input type="text" id="txtPhone-<%=k%>" value="<%=usersData[k].phone %>" />
+                                <button class="btn btn-primary btn-sm btn-save-phone"><i class="bi bi-check-circle-fill"></i> Save</button>
+                              </span>                                
+                            </p>
+                            <p>
+                              <strong>Address: </strong>
+                              <span id="displayAddress-<%=k%>">
+                                <span id="showAddress-<%=k%>"><%=usersData[k].address %></span>
+<%                                if(userType=="user"){ %>                              
+                                    <button class="btn btn-edit-address"><i class="bi bi-pencil-square"></i></button>
+<%                                } %>
+                              </span>
+                              <span id="editAddress-<%=k%>" style="display:none;">
+                                <textarea  id="txtAddress-<%=k%>"><%=usersData[k].address %></textarea>
+                                <button class="btn btn-primary btn-sm btn-save-address"><i class="bi bi-check-circle-fill"></i> Save</button>
+                              </span>                                
+                            </p>
+                            <p>
+                              <strong>Marital Status : </strong>
+                              <span>
+                                  <span id="showMaritalStatus-<%=k%>">
+<%
+                                    var rdMaritalStatusYes="";
+                                    var rdMaritalStatusNo="";
+                                    if(usersData[k].maritalStatus=="yes"){rdMaritalStatusYes="checked";}else{rdMaritalStatusNo="checked";}
+%>                                    
+                                    <input type="radio" class="maritalStatusYes-<%=k%>" name="rdMaritalStatus-<%=k%>" onclick="return false;" <%=rdMaritalStatusYes %> /> Married                                     
+                                    <input type="radio" class="maritalStatusNo-<%=k%>" name="rdMaritalStatus-<%=k%>" onclick="return false;" <%=rdMaritalStatusNo %> style="margin-left:10px;" /> Unmarried
+                                  </span>
+<%                                if(userType=="user"){ %>                              
+                                    <button id="displayMaritalStatus-<%=k%>" class="btn btn-edit-maritalStatus"><i class="bi bi-pencil-square"></i></button>
+<%                                } %>                                                              
+                              </span>
+                              <span id="editMaritalStatus-<%=i%>" style="display:none;">
+                                <button class="btn btn-primary btn-sm btn-save-maritalStatus"><i class="bi bi-check-circle-fill"></i> Save</button>
+                              </span>
+                            </p>
+                          </div>
+                          <div id="adminData">     
+                            <h4 class="mt-5">Admin Section</h4>   
+                            <hr />                                                 
+                            <p>
+                              <strong>Designation: </strong> <%=usersData[k].Designation %>                              
+                            </p>
+                            <p>
+                              <strong>Department: </strong> <%=usersData[k].Department %>                              
+                            </p>
+                            <p>
+                              <strong>CTC: </strong> <%=usersData[k].CTC %>                              
+                            </p>
+                          </div>
+                          <div id="managerData">
+                            <h4 class="mt-5">Manager Section</h4>   
+                            <hr /> 
+                            <p>
+                              <strong>Eligible for Bonus : </strong>
+                              <span>
+<%
+                                var chkBonus="";
+                                if(usersData[k].eligibleForBonus=="yes"){chkBonus="checked";}
+%>                                    
+                                <input type="checkbox" id="chkBonus-<%=k%>" onclick="return false;" <%=chkBonus%> />                                     
+                              </span>
+                            </p>
+                            <p>
+                              <strong>Allow Paid leaves : </strong>
+                              <span>
+<%
+                                var rdLeavesYes="";
+                                var rdLeavesNo="";
+                                if(usersData[k].allowPaidLeave=="yes"){rdLeavesYes="checked";}else{rdLeavesNo="checked";}
+%>                                    
+                                <input type="radio" class="leavesYes-<%=k%>" name="rdpaidLeaves-<%=i%>" onclick="return false;" <%=rdLeavesYes %> /> Yes                                     
+                                <input type="radio" class="leavesNo-<%=k%>" name="rdpaidLeaves-<%=i%>" onclick="return false;" <%=rdLeavesNo %> style="margin-left:10px;" /> No
+                              </span>
+                            </p>
+                            <p>
+                              <strong>Allow LTA : </strong>
+                              <span>
+<%
+                                var rdLTAYes="";
+                                var rdLTANo="";
+                                if(usersData[k].allowLTA=="yes"){rdLTAYes="checked";}else{rdLTANo="checked";}
+%>                                    
+                                <input type="radio" class="ltaYes-<%=k%>" name="rdLta-<%=i%>" onclick="return false;" <%=rdLTAYes %> /> Yes                                     
+                                <input type="radio" class="ltaNo-<%=k%>" name="rdLta-<%=i%>" onclick="return false;" <%=rdLTANo %> style="margin-left:10px;" /> No
+                              </span>
+                            </p>
+                            <p>
+                              <strong>Working Shift: </strong>
+                              <span><%=usersData[k].workingShift %></span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<%                }
+                  else{
+                    for(var i=0; i<usersData.length; i++){                      
+%>                  
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading-<%=i%>">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%=i%>" aria-expanded="true" aria-controls="collapseOne" style="font-size:22px;">
+                            <span class="badge bg-primary"># <%=usersData[i].id %></span>
+                            <span class="badge bg-secondary ms-3"><%=usersData[i].name %></span>
+                            <span class="badge bg-secondary ms-3"><%=usersData[i].email %></span>
+                          </button>
+                        </h2>
+                        <div id="collapse-<%=i%>" class="accordion-collapse collapse" aria-labelledby="heading-<%=i%>" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <div id="userData"> 
+                              <h4>User Section</h4>   
+                              <hr />                           
+                              <p>
+                                <strong>Phone #: </strong> <%=usersData[i].phone %>                                                              
+                              </p>
+                              <p>
+                                <strong>Address: </strong> <%=usersData[i].address %>                                                                
+                              </p>
+                              <p>
+                                <strong>Marital Status : </strong>
+                                <span>                                    
+<%
+                                  var rdMaritalStatusYes="";
+                                  var rdMaritalStatusNo="";
+                                  if(usersData[i].maritalStatus=="yes"){rdMaritalStatusYes="checked";}else{rdMaritalStatusNo="checked";}
+%>                                    
+                                  <input type="radio" class="maritalStatusYes-<%=i%>" name="rdMaritalStatus-<%=i%>" onclick="return false;" <%=rdMaritalStatusYes %> /> Married                                     
+                                  <input type="radio" class="maritalStatusNo-<%=i%>" name="rdMaritalStatus-<%=i%>" onclick="return false;" <%=rdMaritalStatusNo %> style="margin-left:10px;" /> Unmarried
+                                </span>
+                              </p>
+                            </div>
+                            <div id="adminData">  
+                              <h4 class="mt-5">Admin Section</h4>   
+                              <hr />                          
+                              <p style="display:none;">
+                                Date of Joining: <%=usersData[i].DOJ %>
+  <%                              if(userType=="admin"){ %>                              
+                                    <button class="btn btn-edit-doj"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                
+                              </p>
+                              <p>
+                                <strong>Designation: </strong>
+                                <span id="displayDesignation-<%=i%>">
+                                    <span id="showDesignation-<%=i%>"><%=usersData[i].Designation %></span>
+  <%                              if(userType=="admin"){ %>                              
+                                    <button class="btn btn-edit-designation"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editDesignation-<%=i%>" style="display:none;">
+                                  <input type="text" id="txtDesignation-<%=i%>" value="<%=usersData[i].Designation %>" />
+                                  <button class="btn btn-primary btn-sm btn-save-designation"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                              <p>
+                                <strong>Department: </strong>
+                                <span id="displayDepartment-<%=i%>">
+                                    <span id="showDepartment-<%=i%>"><%=usersData[i].Department %></span>
+  <%                              if(userType=="admin"){ %>                              
+                                    <button class="btn btn-edit-department"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editDepartment-<%=i%>" style="display:none;">                                
+                                  <select id="ddlDepartment-<%=i%>">
+                                    <option value="">Please select</option>
+                                    <option value="IT">IT</option>
+                                    <option value="Accounts">Accounts</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Admin">Admin</option>
+                                  </select>
+                                  <button class="btn btn-primary btn-sm btn-save-department"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                              <p>
+                                <strong>CTC: </strong>
+                                <span id="displayCTC-<%=i%>">
+                                    <span id="showCTC-<%=i%>"><%=usersData[i].CTC %></span>
+  <%                              if(userType=="admin"){ %>                              
+                                    <button class="btn btn-edit-ctc"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editCTC-<%=i%>" style="display:none;">
+                                  <input type="text" id="txtCTC-<%=i%>" value="<%=usersData[i].CTC %>" onkeypress="return isNumberKey(event);" />
+                                  <button class="btn btn-primary btn-sm btn-save-ctc"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                            </div>
+                            <div id="managerData">
+                              <h4 class="mt-5">Manager Section</h4>   
+                              <hr />  
+                              <p>
+                                <strong>Eligible for Bonus : </strong>
+                                <span>
+                                    <span id="showBonus-<%=i%>">
+  <%
+                                      var chkBonus="";
+                                      if(usersData[i].eligibleForBonus=="yes"){chkBonus="checked";}
+  %>                                    
+                                      <input type="checkbox" id="chkBonus-<%=i%>" onclick="return false;" <%=chkBonus%> />                                     
+                                    </span>
+  <%                              if(userType=="manager"){ %>                              
+                                    <button id="displayBonus-<%=i%>" class="btn btn-edit-bonus"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editBonus-<%=i%>" style="display:none;">
+                                  <button class="btn btn-primary btn-sm btn-save-bonus"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                              <p>
+                                <strong>Allow Paid leaves : </strong>
+                                <span>
+                                    <span id="showLeaves-<%=i%>">
+  <%
+                                      var rdLeavesYes="";
+                                      var rdLeavesNo="";
+                                      if(usersData[i].allowPaidLeave=="yes"){rdLeavesYes="checked";}else{rdLeavesNo="checked";}
+  %>                                    
+                                      <input type="radio" class="leavesYes-<%=i%>" name="rdpaidLeaves-<%=i%>" onclick="return false;" <%=rdLeavesYes %> /> Yes                                     
+                                      <input type="radio" class="leavesNo-<%=i%>" name="rdpaidLeaves-<%=i%>" onclick="return false;" <%=rdLeavesNo %> style="margin-left:10px;" /> No
+                                    </span>
+  <%                              if(userType=="manager"){ %>                              
+                                    <button id="displayLeaves-<%=i%>" class="btn btn-edit-leaves"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editLeaves-<%=i%>" style="display:none;">
+                                  <button class="btn btn-primary btn-sm btn-save-leaves"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                              <p>
+                                <strong>Allow LTA : </strong>
+                                <span>
+                                    <span id="showLTA-<%=i%>">
+  <%
+                                      var rdLTAYes="";
+                                      var rdLTANo="";
+                                      if(usersData[i].allowLTA=="yes"){rdLTAYes="checked";}else{rdLTANo="checked";}
+  %>                                    
+                                      <input type="radio" class="ltaYes-<%=i%>" name="rdLta-<%=i%>" onclick="return false;" <%=rdLTAYes %> /> Yes                                     
+                                      <input type="radio" class="ltaNo-<%=i%>" name="rdLta-<%=i%>" onclick="return false;" <%=rdLTANo %> style="margin-left:10px;" /> No
+                                    </span>
+  <%                              if(userType=="manager"){ %>                              
+                                    <button id="displayLta-<%=i%>" class="btn btn-edit-lta"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editLta-<%=i%>" style="display:none;">
+                                  <button class="btn btn-primary btn-sm btn-save-lta"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                              <p>
+                                <strong>Working Shift: </strong>
+                                <span id="displayShift-<%=i%>">
+                                    <span id="showShift-<%=i%>"><%=usersData[i].workingShift %></span>
+  <%                              if(userType=="manager"){ %>                              
+                                    <button class="btn btn-edit-shift"><i class="bi bi-pencil-square"></i></button>
+  <%                              } %>                                                              
+                                </span>
+                                <span id="editShift-<%=i%>" style="display:none;">                                
+                                  <select id="ddlShift-<%=i%>">
+                                    <option value="">Please select</option>
+                                    <option value="First Shift">First Shift</option>
+                                    <option value="Second Shift">Second Shift</option>
+                                    <option value="Third Shift">Third Shift</option>
+                                  </select>
+                                  <button class="btn btn-primary btn-sm btn-save-shift"><i class="bi bi-check-circle-fill"></i> Save</button>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+<%                  } 
+                  }
+%>                    
+                </div>
+            </div>
+        </div>
+        <script>
+          function disabledElement(elementId,status){
+            if(status){
+              document.querySelector(elementId).setAttribute("onclick", "return false;");
+            }else{
+              document.querySelector(elementId).removeAttribute("onclick");
+            }
+          }
+
+          onload=function(){
+            //Edit Marital Status 
+            let btnEditMaritalStatus = document.querySelectorAll(".btn-edit-maritalStatus");
+            for(let i=0; i<btnEditMaritalStatus.length;i++){
+              btnEditMaritalStatus[i].addEventListener("click",function(){
+                disabledElement(".maritalStatusYes-"+i,false);
+                disabledElement(".maritalStatusNo-"+i,false);
+                showHideSection("#editMaritalStatus-"+i,"#displayMaritalStatus-"+i);
+              });
+            }
+
+            //Save Allow paid leaves
+            let btnSaveMaritalStatus = document.querySelectorAll(".btn-save-maritalStatus");
+            for(let i=0; i<btnSaveMaritalStatus.length;i++){
+              btnSaveMaritalStatus[i].addEventListener("click",function(){
+                disabledElement(".maritalStatusYes-"+i,true);
+                disabledElement(".maritalStatusNo-"+i,true);
+                showHideSection("#displayMaritalStatus-"+i,"#editMaritalStatus-"+i);
+              });
+            }
+
+
+
+
+            //Edit Address
+            let btnEditAddress = document.querySelectorAll(".btn-edit-address");
+            for(let i=0; i<btnEditAddress.length;i++){
+              btnEditAddress[i].addEventListener("click",function(){
+                showHideSection("#editAddress-"+[i],"#displayAddress-"+[i],"#txtAddress-"+[i]);
+              });
+            }            
+
+            //Save Address
+            let btnSaveAddress = document.querySelectorAll(".btn-save-address");
+            for(let i=0; i<btnSaveAddress.length;i++){
+              btnSaveAddress[i].addEventListener("click",function(){
+                getSetData("#txtAddress-"+[i],"#showAddress-"+[i],"#displayAddress-"+[i],"#editAddress-"+[i]);
+              });
+            }
+
+
+
+
+            //Edit Phone
+            let btnEditPhone = document.querySelectorAll(".btn-edit-phone");
+            for(let i=0; i<btnEditPhone.length;i++){
+              btnEditPhone[i].addEventListener("click",function(){
+                showHideSection("#editPhone-"+[i],"#displayPhone-"+[i],"#txtPhone-"+[i]);
+              });
+            }            
+
+            //Save Phone
+            let btnSavePhone = document.querySelectorAll(".btn-save-phone");
+            for(let i=0; i<btnSavePhone.length;i++){
+              btnSavePhone[i].addEventListener("click",function(){
+                getSetData("#txtPhone-"+[i],"#showPhone-"+[i],"#displayPhone-"+[i],"#editPhone-"+[i]);
+              });
+            }
+
+
+
+            //Edit Shift
+            let btnEditShift = document.querySelectorAll(".btn-edit-shift");
+            for(let i=0; i<btnEditShift.length;i++){
+              btnEditShift[i].addEventListener("click",function(){
+                showHideSection("#editShift-"+[i],"#displayShift-"+[i],"#ddlShift-"+[i]);
+              });
+            }            
+
+            //Save Shift
+            let btnSaveShift = document.querySelectorAll(".btn-save-shift");
+            for(let i=0; i<btnSaveShift.length;i++){
+              btnSaveShift[i].addEventListener("click",function(){
+                getSetData("#ddlShift-"+[i],"#showShift-"+[i],"#displayShift-"+[i],"#editShift-"+[i]);
+              });
+            }
+
+            //Edit LTA
+            let btnEditLta = document.querySelectorAll(".btn-edit-lta");
+            for(let i=0; i<btnEditLta.length;i++){
+              btnEditLta[i].addEventListener("click",function(){
+                disabledElement(".ltaYes-"+i,false);
+                disabledElement(".ltaNo-"+i,false);
+                showHideSection("#editLta-"+i,"#displayLta-"+i);
+              });
+            }
+
+            //Save LTA
+            let btnSaveLta = document.querySelectorAll(".btn-save-lta");
+            for(let i=0; i<btnSaveLta.length;i++){
+              btnSaveLta[i].addEventListener("click",function(){
+                disabledElement(".ltaYes-"+i,true);
+                disabledElement(".ltaNo-"+i,true);
+                showHideSection("#displayLta-"+i,"#editLta-"+i);
+              });
+            }
+
+
+            //Edit Allow paid leaves 
+            let btnEditLeaves = document.querySelectorAll(".btn-edit-leaves");
+            for(let i=0; i<btnEditLeaves.length;i++){
+              btnEditLeaves[i].addEventListener("click",function(){
+                disabledElement(".leavesYes-"+i,false);
+                disabledElement(".leavesNo-"+i,false);
+                showHideSection("#editLeaves-"+i,"#displayLeaves-"+i);
+              });
+            }
+
+            //Save Allow paid leaves
+            let btnSaveLeaves = document.querySelectorAll(".btn-save-leaves");
+            for(let i=0; i<btnSaveLeaves.length;i++){
+              btnSaveLeaves[i].addEventListener("click",function(){
+                disabledElement(".leavesYes-"+i,true);
+                disabledElement(".leavesNo-"+i,true);
+                showHideSection("#displayLeaves-"+i,"#editLeaves-"+i);
+              });
+            }
+
+            //Edit Bonus 
+            let btnEditBonus = document.querySelectorAll(".btn-edit-bonus");
+            for(let i=0; i<btnEditBonus.length;i++){
+              btnEditBonus[i].addEventListener("click",function(){
+                disabledElement("#chkBonus-"+i,false);
+                showHideSection("#editBonus-"+i,"#displayBonus-"+i,"#chkBonus-"+i);
+              });
+            }
+
+            //Save Bonus
+            let btnSaveBonus = document.querySelectorAll(".btn-save-bonus");
+            for(let i=0; i<btnSaveBonus.length;i++){
+              btnSaveBonus[i].addEventListener("click",function(){
+                disabledElement("#chkBonus-"+i,true);
+                showHideSection("#displayBonus-"+i,"#editBonus-"+i);
+              });
+            }
+
+            //Edit Designation
+            let btnEditDesignation = document.querySelectorAll(".btn-edit-designation");
+            for(let i=0; i<btnEditDesignation.length;i++){
+              btnEditDesignation[i].addEventListener("click",function(){
+                showHideSection("#editDesignation-"+[i],"#displayDesignation-"+[i],"#txtDesignation-"+[i]);
+              });
+            }            
+
+            //Save Designation
+            let btnSaveDesignation = document.querySelectorAll(".btn-save-designation");
+            for(let i=0; i<btnSaveDesignation.length;i++){
+              btnSaveDesignation[i].addEventListener("click",function(){
+                getSetData("#txtDesignation-"+[i],"#showDesignation-"+[i],"#displayDesignation-"+[i],"#editDesignation-"+[i]);
+              });
+            }            
+
+            //Edit Department
+            let btnEditDepartment = document.querySelectorAll(".btn-edit-department");
+            for(let i=0; i<btnEditDepartment.length;i++){
+              btnEditDepartment[i].addEventListener("click",function(){
+                showHideSection("#editDepartment-"+[i],"#displayDepartment-"+[i],"#ddlDepartment-"+[i]);
+              });
+            }            
+
+            //Save Department
+            let btnSaveDepartment = document.querySelectorAll(".btn-save-department");
+            for(let i=0; i<btnSaveDepartment.length;i++){
+              btnSaveDepartment[i].addEventListener("click",function(){
+                getSetData("#ddlDepartment-"+[i],"#showDepartment-"+[i],"#displayDepartment-"+[i],"#editDepartment-"+[i]);
+              });
+            }
+            
+            //Edit CTC
+            let btnEditCTC = document.querySelectorAll(".btn-edit-ctc");
+            for(let i=0; i<btnEditCTC.length;i++){
+              btnEditCTC[i].addEventListener("click",function(){
+                showHideSection("#editCTC-"+[i],"#displayCTC-"+[i],"#txtCTC-"+[i]);
+              });
+            }
+            
+
+            //Save Department
+            let btnSaveCTC = document.querySelectorAll(".btn-save-ctc");
+            for(let i=0; i<btnSaveCTC.length;i++){
+              btnSaveCTC[i].addEventListener("click",function(){
+                getSetData("#txtCTC-"+[i],"#showCTC-"+[i],"#displayCTC-"+[i],"#editCTC-"+[i]);
+              });
+            }
+            
+          }
+
+          function showHideSection(showSection,hideSection,focusOn){
+            document.querySelector(showSection).style.display="inline-block";
+            document.querySelector(hideSection).style.display="none";
+            if(focusOn != null){
+              document.querySelector(focusOn).focus();
+            }
+          }
+
+          function getSetData(getId, setId, showSection, hideSection){
+            if(document.querySelector(getId).value==""){
+              alert("Please select / enter correct value;")
+              return false;
+            }
+            document.querySelector(setId).innerText = document.querySelector(getId).value;
+            showHideSection(showSection,hideSection);
+          }
+
+          function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+                alert("Please Enter Numeric Value Only");
+                return false;
+            }
+            return true;
+          }
+
+
+          //https://codepen.io/vsfvjiuv-the-typescripter/pen/mdMeJwL
+        </script>
+    </body>
+</html>

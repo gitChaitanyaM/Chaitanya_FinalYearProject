@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DATABASE COMPANY</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <style>
+            .logo{background-image: 
+                linear-gradient(90deg,#ff00ff,#ffff00,#00aeff);
+                -webkit-background-clip: text;
+                color: transparent;}
+            
+            .data{background-image:
+                linear-gradient(90deg,#ff0000,#f70e8ed8,#00ff4c);
+                -webkit-background-clip: text;
+                color: transparent;}
+
+            .base{background-image:
+                linear-gradient(90deg,#e71195,#f70e0ed8,#d9ff00);
+                -webkit-background-clip: text;
+                color: transparent;}
+            
+            .company{background-image:
+                linear-gradient(90deg,#11e73f,#0e8ef7d8,#9900ff);
+                -webkit-background-clip: text;
+                color: transparent;}
+            a{text-decoration: none;}
+            .img-outer{position: relative;}
+            .img-size{width: 100%;}
+            .errMsg{color:red;font-weight: bold;}
+
+            /* Vrushabh */
+            .floatL{float: left;}
+      
+            header{
+                width:100%;
+                background-color:yellowgreen;
+                height: 100px;
+            } 
+            
+            figure{position: relative;}
+            
+            figure{margin: 0px;}
+
+            .logo-img{
+                background-image: url("https://img.freepik.com/premium-vector/db-logo-design-letter-logo-design_522667-23.jpg?w=740");
+                background-size: cover;
+                background-repeat: no-repeat;
+                width:100px;
+                height: 100px;
+            }
+
+            .database {                 
+                font-size: 60px;
+                padding: 5px 0px;
+                color: white;
+                font-family:serif ;                
+            }
+            
+            aside{width:8%;} 
+            
+            section{
+                width: 92%;
+                text-align: center;
+            }      
+           
+            @media only screen and (max-width:990px){
+                .database{font-size:26px;margin-top:30px;}
+                ins{margin-left: 35px;margin-top: 25px;}
+            }
+
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <aside class="floatL ">
+                  <figure >
+                     <article class="logo-img"></article>
+                  </figure>
+                </aside>
+                <section class="floatL" >
+                    <article class="database " >
+                      <ins class="font-effect-fire">The DATABASE COMPANY</ins>
+                   </article>
+                </section>
+            </header>
+            <div class="my-3"></div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <div class="text-center">
+                                    <p class="fs-1 fw-bold">Log in</p>
+                                    <p class="fs-4 fw-bold d-none">New to this site? <a href="#">Sign up</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="/viewData" method="post" onsubmit="return validateFields();">
+                            <div class="row">  
+                                <div class="col-sm-12">
+                                    <div class="errMsg" style="display: none;"></div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-check">
+                                        <label for=""></label>
+                                        <input type="text" name="txtEmail" id="txtEmail" class="form-control" placeholder="Email" />
+                                    </div>
+        
+                                    <div class="my-4"></div>
+        
+                                    <div class="form-check">
+                                        <label for=""></label>
+                                        <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="password"/>
+                                    </div>
+        
+                                    <div class="my-4"></div>
+        
+                                    <div class="form-check">
+                                        <input type="submit" value="Submit" class=" btn text-light bg-primary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="my-3"></div>
+                        <div class="row ">
+                            <div class="col-md-12  d-none d-lg-block">
+                                <div class="img-outer">
+                                    <img class="img-size" src="https://www.shutterstock.com/image-vector/diverse-crowd-people-seamless-banner-600w-1168257574.jpg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function validateFields(){
+                document.querySelector(".errMsg").innerHTML="";
+                let sEmail = document.querySelector("#txtEmail");
+                if(sEmail.value==""){
+                    document.querySelector(".errMsg").innerHTML = "Please enter your email";
+                    document.querySelector(".errMsg").style.display="block";
+                    sEmail.focus();
+                    return false;
+                }
+
+                if(!validateEmail(sEmail.value)){
+                    document.querySelector(".errMsg").innerHTML = "Please enter email in correct format";
+                    document.querySelector(".errMsg").style.display="block";
+                    sEmail.focus();
+                    return false;
+                }
+
+                let sPassword = document.querySelector("#txtPassword");
+                if(sPassword.value==""){
+                    document.querySelector(".errMsg").innerHTML = "Please enter your password";
+                    document.querySelector(".errMsg").style.display="block";
+                    sPassword.focus();
+                    return false;
+                }
+
+                if(sEmail.value=="admin@dataresearch.com" && sPassword.value=="admin" ){
+                    return true;
+                }else if(sEmail.value=="user@dataresearch.com" && sPassword.value=="user" ){
+                    return true;
+                }else if(sEmail.value=="manager@dataresearch.com" && sPassword.value=="manager" ){
+                    return true;
+                }else{
+                    document.querySelector(".errMsg").innerHTML = "Email and password not matched";
+                    document.querySelector(".errMsg").style.display="block";
+                    sEmail.focus();
+                    return false;
+                }
+
+                return true;
+            }
+
+            function validateEmail(email) {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            } 
+
+        </script>
+    </body>
+</html>
